@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools { maven 'Maven3'; jdk 'JDK17' }
+    tools { maven 'maven 3.9.6'; jdk 'Open jdk 17' }
     stages {
         stage('Test') {
             steps {
