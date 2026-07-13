@@ -33,5 +33,4 @@ public class ProjectAdapter extends BaseAdapter {
                 .log().all()
                 .spec(ok200);
     }
-
 }

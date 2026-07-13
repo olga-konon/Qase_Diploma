@@ -11,7 +11,6 @@ import static com.codeborne.selenide.Selenide.*;
 @Listeners(listeners.TestListener.class)
 public class ProjectTest extends BaseTest {
 
-
     @Test(description = "UI-PRJ-01 — Verify a project can be created via the form with valid data")
     public void checkCreateProject() {
         String projectName = TestDataGenerator.generateProjectName();
@@ -31,8 +30,6 @@ public class ProjectTest extends BaseTest {
 
         projectsPage.isPageOpened()
                 .shouldSeeProject(projectName);
-
-
     }
 
     @Test(description = "UI-PRJ-02 — Verify project creation is blocked when a required field is empty")

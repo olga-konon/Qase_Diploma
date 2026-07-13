@@ -47,8 +47,6 @@ public class BaseTest {
                         .savePageSource(true)
                         .screenshots(true));
 
-
-
         switch (browser) {
             case "firefox":
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -82,7 +80,6 @@ public class BaseTest {
             projectsPage.isPageOpened()
                     .deleteProject(createdProjectName);
         }
-
         Selenide.closeWebDriver();
     }
 }

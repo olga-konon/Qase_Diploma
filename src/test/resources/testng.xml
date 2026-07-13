@@ -3,6 +3,7 @@
 <suite name="CrossBrowserSuite" parallel="tests" thread-count="1">
     <listeners>
         <listener class-name="listeners.TestListener"/>
+        <listener class-name="listeners.Retry"/>
     </listeners>
     <test name="Chrome">
         <parameter name="browser" value="chrome"/>
