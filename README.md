@@ -2,49 +2,6 @@ Test Case Suite — Qase.io Projects & Cases (API + UI)
 
 Project link: https://app.qase.io/login
 
-## Project checklist
-- [ ] Add dependencies and properties to pom.xml (TestNG, Selenide, Allure, Log, rest-assured, Lombok)
-- [ ] Create base packages structure
-- BaseTest
-- BasePage
-- LoginPage
-
-- [ ] Hide password, login, token: 
-- config.properties --> in gitignore, 
-- config.properties.example (will be commited)
-- Config --> gets Property
-- property Reader (don't add to git config.properties )
-
-- [ ] crossbrowsser testing
-- add settings in basetest and base adapter
-- set up testng.xml --> runner
-- add listeners to testng.xml
-- run with maven??
-
-- [ ] set up allure.properties and allure
-- add to base test
-- create property
-- add dependencies (including rest assured and so on)
-
-1. Add a browser key to config.properties + a Config.getBrowser() getter
-2. In BaseTest, branch on browser → build ChromeOptions/FirefoxOptions/EdgeOptions accordingly
-3. Make the setup method accept it via TestNG injection: @Parameters("browser") + @Optional("chrome") on the parameter — not just reading a system property
-4. In testng.xml: one <test> block per browser, each with its own <parameter name="browser" value="...">
-5. Add <listeners> in testng.xml for any custom ITestListener
-6. In pom.xml: add maven-surefire-plugin, point suiteXmlFiles at testng.xml — otherwise Maven ignores the whole suite
-7. Add aspectjweaver as an explicit dependency + -javaagent argLine in that same surefire config — needed for @Attachment/@Step to actually work
-8. Add allure-maven plugin for mvn allure:report / allure:serve
-9. For API tests: wire .addFilter(new AllureRestAssured()) into your request spec, and make sure the request-spec class's dependency scope matches where it lives (main vs test)
-
-
-- [ ] set up jenkins 
-- [ ] Logs log4j2.xml
-- [ ] APi tests
-
-- [ ] what to add 
-- @Step --> allure reports 
-## Problems 
-- Selenide should be moved to root test --> change in pom.xml to compile
 ## API Checklist
 
 ### API — Project
