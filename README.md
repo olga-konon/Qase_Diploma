@@ -41,7 +41,8 @@ Project link: https://app.qase.io/login
 - [ ] Logs log4j2.xml
 - [ ] APi tests
 
-
+- [ ] what to add 
+- @Step --> allure reports 
 ## Problems 
 - Selenide should be moved to root test --> change in pom.xml to compile
 ## API Checklist
