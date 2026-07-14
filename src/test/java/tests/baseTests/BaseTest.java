@@ -66,6 +66,9 @@ public class BaseTest {
                 chromeOptions.setExperimentalOption("prefs", chromePrefs);
                 chromeOptions.addArguments("--incognito", "--disable-notifications",
                         "--disable-popup-blocking", "--disable-infobars", "--no-sandbox");
+                if (System.getenv("BUILD_NUMBER") != null) {
+                    chromeOptions.addArguments("--headless=new");
+                }
                 Configuration.browserCapabilities = chromeOptions;
         }
         loginPage = new LoginPage();
