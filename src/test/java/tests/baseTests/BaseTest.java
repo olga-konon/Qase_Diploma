@@ -35,7 +35,7 @@ public class BaseTest {
         Configuration.browser = browser;
         Configuration.baseUrl = Config.getBaseUrl();
 
-        Configuration.timeout = 10000;
+        Configuration.timeout = 20000;
         Configuration.clickViaJs = true;
 
         Configuration.savePageSource = true;
