@@ -47,28 +47,49 @@ public class BaseTest {
                         .savePageSource(true)
                         .screenshots(true));
 
+        boolean headless = "true".equals(System.getProperty("headless", "true"));
+
         switch (browser) {
             case "firefox":
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addPreference("dom.webnotifications.enabled", false);
+                if (headless) {
+                    firefoxOptions.addArguments("--headless");
+                }
+                firefoxOptions.addArguments("--no-sandbox");
+                firefoxOptions.addArguments("--disable-dev-shm-usage");
+                firefoxOptions.addArguments("--disable-gpu");
                 Configuration.browserCapabilities = firefoxOptions;
                 break;
             case "edge":
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--inprivate", "--disable-notifications");
+                if (headless) {
+                    edgeOptions.addArguments("--headless=new");
+                }
+                edgeOptions.addArguments("--no-sandbox");
+                edgeOptions.addArguments("--disable-dev-shm-usage");
+                edgeOptions.addArguments("--disable-gpu");
                 Configuration.browserCapabilities = edgeOptions;
                 break;
             default: // chrome
                 ChromeOptions chromeOptions = new ChromeOptions();
+
                 HashMap<String, Object> chromePrefs = new HashMap<>();
                 chromePrefs.put("credentials_enable_service", false);
                 chromePrefs.put("profile.password_manager_enabled", false);
                 chromeOptions.setExperimentalOption("prefs", chromePrefs);
-                chromeOptions.addArguments("--incognito", "--disable-notifications",
-                        "--disable-popup-blocking", "--disable-infobars", "--no-sandbox");
-                if (System.getenv("BUILD_NUMBER") != null) {
+                chromeOptions.addArguments("--incognito");
+                chromeOptions.addArguments("--disable-notifications");
+                chromeOptions.addArguments("--disable-popup-blocking");
+                chromeOptions.addArguments("--disable-infobars");
+                if (headless) {
                     chromeOptions.addArguments("--headless=new");
                 }
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+                chromeOptions.addArguments("--disable-gpu");
+
                 Configuration.browserCapabilities = chromeOptions;
         }
         loginPage = new LoginPage();

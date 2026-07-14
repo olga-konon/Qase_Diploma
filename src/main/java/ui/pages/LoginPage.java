@@ -1,12 +1,15 @@
 package ui.pages;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.shadowCss;
 import static com.codeborne.selenide.Selenide.$;
 import static ui.dict.Elements.SIGN_IN;
 
+@Log4j2
 public class LoginPage extends BasePage {
 
     private final String LOGIN = "[name=email]";
@@ -18,6 +21,7 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    @Step("Login with: '{user}'")
     public ProjectsPage login(String user, String password) {
         $(shadowCss("#accept", "#usercentrics-cmp-ui")).click();
         $(LOGIN).setValue(user);

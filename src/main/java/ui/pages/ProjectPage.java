@@ -1,5 +1,6 @@
 package ui.pages;
 
+import io.qameta.allure.Step;
 import ui.dict.Elements;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -15,6 +16,7 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
+    @Step("Fill in project form: '{projectName}', '{projectCode}'")
     public ProjectPage fillInProjectForm(String projectName, String projectCode) {
         $(PROJECT_NAME_FIELD).setValue(projectName);
         $(PROJECT_CODE_FIELD).setValue(projectCode);
