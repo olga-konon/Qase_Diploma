@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools { maven 'maven 3.9.6' }
     parameters {
-        string(name: 'BROWSER', defaultValue: 'chrome', description: 'Browser to run tests in')
+     choice(choices: ['chrome', 'firefox', 'edge'], name: 'BROWSER')
         string(name: 'BASE_URL', defaultValue: 'https://app.qase.io', description: 'Qase base URL')
     }
     environment {

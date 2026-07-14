@@ -65,7 +65,7 @@ public class BaseTest {
                 chromePrefs.put("profile.password_manager_enabled", false);
                 chromeOptions.setExperimentalOption("prefs", chromePrefs);
                 chromeOptions.addArguments("--incognito", "--disable-notifications",
-                        "--disable-popup-blocking", "--disable-infobars");
+                        "--disable-popup-blocking", "--disable-infobars", "--no-sandbox");
                 Configuration.browserCapabilities = chromeOptions;
         }
         loginPage = new LoginPage();
