@@ -13,11 +13,9 @@ public class PropertyReader {
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
 
-            if (input == null) {
-                throw new RuntimeException("config.properties not found");
+            if (input != null) {
+                properties.load(input);
             }
-
-            properties.load(input);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load config.properties", e);
         }
