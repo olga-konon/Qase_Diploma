@@ -35,5 +35,7 @@ public class CasePage extends BasePage {
         $(byText(Elements.SAVE_BUTTON)).click();
         return new CasesPage();
     }
+
+
 }
 
