@@ -12,9 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import ui.pages.LoginPage;
-import ui.pages.ProjectPage;
-import ui.pages.ProjectsPage;
+import ui.pages.*;
 
 import java.util.HashMap;
 
@@ -23,6 +21,8 @@ public class BaseTest {
     public LoginPage loginPage;
     public ProjectPage projectPage;
     public ProjectsPage projectsPage;
+    public CasePage casePage;
+    public CasesPage casesPage;
 
     protected String createdProjectName;
     protected String createdProjectCode;
@@ -95,6 +95,8 @@ public class BaseTest {
         loginPage = new LoginPage();
         projectPage = new ProjectPage();
         projectsPage = new ProjectsPage();
+        casePage = new CasePage();
+        casesPage = new CasesPage();
 
     }
 

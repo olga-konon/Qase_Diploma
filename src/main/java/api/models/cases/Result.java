@@ -1,4 +1,4 @@
-package api.models.project;
+package api.models.cases;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
@@ -7,17 +7,12 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectRs {
-    @SerializedName("status")
+public class Result {
+    @SerializedName("id")
     @Expose
-    public Boolean status;
-    @SerializedName("result")
+    public Integer id;
+    @SerializedName("title")
     @Expose
-    public Result result;
-    @SerializedName("errorMessage")
-    @Expose
-    public String errorMessage;
-
-
+    public String title;
 
 }

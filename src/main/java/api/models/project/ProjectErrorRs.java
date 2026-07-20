@@ -7,17 +7,9 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectRs {
-    @SerializedName("status")
+public class ProjectErrorRs {
+    @SerializedName("error")
     @Expose
-    public Boolean status;
-    @SerializedName("result")
-    @Expose
-    public Result result;
-    @SerializedName("errorMessage")
-    @Expose
-    public String errorMessage;
-
-
-
+    public String error;
 }
+

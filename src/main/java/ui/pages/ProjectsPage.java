@@ -29,6 +29,11 @@ public class ProjectsPage extends BasePage {
         return this;
     }
 
+    public CasesPage clickProjectName(String projectName) {
+        $(byText(projectName)).click();
+        return new CasesPage();
+    }
+
     public ProjectsPage deleteProject(String projectName) {
         $(byText(projectName))
                 .ancestor(TABLE_TAG)

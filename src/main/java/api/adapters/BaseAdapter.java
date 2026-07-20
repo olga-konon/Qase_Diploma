@@ -18,7 +18,31 @@ public class BaseAdapter {
             .addFilter(new AllureRestAssured())
             .build();
 
-    public  static ResponseSpecification ok200 = new ResponseSpecBuilder()
+    public static RequestSpecification specWithInvalidToken = new RequestSpecBuilder()
+            .setBaseUri("https://api.qase.io")
+            .setBasePath("v1")
+            .setContentType(ContentType.JSON)
+            .addHeader("Token", "12345")
+            .addFilter(new AllureRestAssured())
+            .build();
+
+    public static ResponseSpecification ok200 = new ResponseSpecBuilder()
             .expectStatusCode(200)
+            .build();
+
+    public static ResponseSpecification error400 = new ResponseSpecBuilder()
+            .expectStatusCode(400)
+            .build();
+
+    public static ResponseSpecification error401 = new ResponseSpecBuilder()
+            .expectStatusCode(401)
+            .build();
+
+    public static ResponseSpecification error404 = new ResponseSpecBuilder()
+            .expectStatusCode(404)
+            .build();
+
+    public static ResponseSpecification error422 = new ResponseSpecBuilder()
+            .expectStatusCode(422)
             .build();
 }
