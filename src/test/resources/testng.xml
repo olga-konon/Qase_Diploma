@@ -22,9 +22,14 @@
             <class name="tests.ui.ProjectTest"/>
         </classes>
     </test>
-    <test name="API">
+    <test name="ProjectAPI">
         <classes>
             <class name="tests.api.ProjectAPITest"/>
+        </classes>
+    </test>
+    <test name="CaseAPI">
+        <classes>
+            <class name="tests.api.CaseAPITest"/>
         </classes>
     </test>
 </suite>

@@ -3,7 +3,7 @@ package tests.ui;
 import helpers.Config;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import tests.baseTests.BaseTest;
+import tests.base.BaseTest;
 import utils.TestDataGenerator;
 
 import static com.codeborne.selenide.Selenide.*;

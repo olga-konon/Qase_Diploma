@@ -44,9 +44,9 @@ Project link: https://app.qase.io/login
 
 ### UI — Case
 - [ ] UI-CASE-01 — Verify cases can be filtered by status
-- [ ] UI-CASE-02 — Verify a case can be created via the form with valid data
-- [ ] UI-CASE-03 — Verify an existing case can be edited
-- [ ] UI-CASE-04 — Verify a case can be deleted with confirmation
+- [x] UI-CASE-02 — Verify a case can be created via the form with valid data
+- [x] UI-CASE-03 — Verify an existing case can be edited
+- [x] UI-CASE-04 — Verify a case can be deleted with confirmation
 - [ ] UI-CASE-BULK-01 — Verify cases can be imported from file into a project
 - [ ] UI-CASE-BULK-02 — Verify multiple cases can be selected and bulk-updated for a shared field such as status or priority
 - [ ] UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted

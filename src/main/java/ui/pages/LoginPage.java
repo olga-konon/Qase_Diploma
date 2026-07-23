@@ -15,7 +15,9 @@ public class LoginPage extends BasePage {
     private final String LOGIN = "[name=email]";
     private final String PASSWORD = "[name=password]";
 
+    @Step("Open login page")
     public LoginPage open() {
+        log.info("Opening login page");
         Selenide.open("/login");
         waitForVisible($(LOGIN));
         return this;
@@ -23,6 +25,7 @@ public class LoginPage extends BasePage {
 
     @Step("Login with: '{user}'")
     public ProjectsPage login(String user, String password) {
+        log.info("Logging in as user: {}", user);
         $(shadowCss("#accept", "#usercentrics-cmp-ui")).click();
         $(LOGIN).setValue(user);
         $(PASSWORD).setValue(password);

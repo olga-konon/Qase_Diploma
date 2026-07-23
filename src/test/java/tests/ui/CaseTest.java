@@ -4,23 +4,28 @@ import api.adapters.ProjectAdapter;
 import api.models.project.ProjectRq;
 import api.models.project.ProjectRs;
 import helpers.Config;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import tests.api.ProjectAPITest;
-import tests.baseTests.BaseTest;
+import tests.base.BaseTest;
 import utils.TestDataGenerator;
 
 import static org.testng.Assert.assertTrue;
 
-
 public class CaseTest extends BaseTest {
 
+    String caseCreatedText = "Test case was created successfully!";
+    String caseEditedText = "Test case was edited successfully!";
+    String caseDeletedText = "Deletion of 1 test case started";
 
-    @Test(description = "UI-CASE-02 — Verify a case can be created via the form with valid data")
+    String projectName;
+    String projectCode;
+    String caseTitle;
+
+    @Test(priority = 1, description = "UI-CASE-02 — Verify a case can be created via the form with valid data")
     public void checkCreateCase() {
 
-        String projectName = TestDataGenerator.generateProjectName();
-        String projectCode = TestDataGenerator.generateProjectCode();
+        projectName = TestDataGenerator.generateProjectName();
+        projectCode = TestDataGenerator.generateProjectCode();
+        caseTitle = TestDataGenerator.generateCaseTitle();
 
         ProjectRq rq = ProjectRq.builder()
                 .title(projectName)
@@ -36,9 +41,6 @@ public class CaseTest extends BaseTest {
         createdProjectName = projectName;
         projectCreated = true;
 
-        // move to datagenerator
-        String caseTitle = "Case " + System.currentTimeMillis();
-
         loginPage.open()
                 .login(Config.getUser(), Config.getPassword())
                 .isPageOpened()
@@ -46,15 +48,48 @@ public class CaseTest extends BaseTest {
                 .isPageOpened()
                 .clickCreateCaseButton()
                 .fillInProjectForm(caseTitle)
-                .clickSaveCaseButton();
-
-        // add assertion
+                .clickSaveCaseButton()
+                .isPageOpened()
+                .shouldSeeCase(caseTitle)
+                .modalShouldHaveText(caseCreatedText);
 
     }
 
-    @Test(description = "Verify an existing case can be edited")
+    @Test(dependsOnMethods = "checkCreateCase",
+            description = "Verify an existing case can be edited")
     public void editTestCase() {
+        loginPage.open()
+                .login(Config.getUser(), Config.getPassword())
+                .isPageOpened()
+                .clickProjectName(createdProjectName)
+                .isPageOpened()
+                .clickTestSuite()
+                .clickTestCase(caseTitle)
+                .clickEditButton()
+                .clearProjectForm()
+                .fillInProjectForm("QA")
+                .clickSaveCaseButton()
+                .isPageOpened()
+                .shouldSeeCase("QA")
+                .modalShouldHaveText(caseEditedText);
 
     }
 
+    @Test(dependsOnMethods = "editTestCase",
+            description = "UI-CASE-04 — Verify a case can be deleted with confirmation")
+    public void checkDeleteCase() {
+        loginPage.open()
+                .login(Config.getUser(), Config.getPassword())
+                .clickProjectName(createdProjectName)
+                .isPageOpened()
+                .clickTestSuite()
+                .selectCase("QA")
+                .clickDeleteButton()
+                .fillInConfirm()
+                .clickDeleteOnFormButton()
+                .isPageOpened()
+                .shouldNotSeeCase("QA")
+                .modalShouldHaveText(caseDeletedText);
+
+    }
 }

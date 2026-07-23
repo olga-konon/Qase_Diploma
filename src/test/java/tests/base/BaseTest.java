@@ -1,4 +1,4 @@
-package tests.baseTests;
+package tests.base;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -21,8 +21,10 @@ public class BaseTest {
     public LoginPage loginPage;
     public ProjectPage projectPage;
     public ProjectsPage projectsPage;
-    public CasePage casePage;
+    public CreateCasePage createCasePage;
     public CasesPage casesPage;
+    public ViewCasePage viewCasePage;
+    public EditCasePage editCasePage;
 
     protected String createdProjectName;
     protected String createdProjectCode;
@@ -95,17 +97,19 @@ public class BaseTest {
         loginPage = new LoginPage();
         projectPage = new ProjectPage();
         projectsPage = new ProjectsPage();
-        casePage = new CasePage();
+        createCasePage = new CreateCasePage();
         casesPage = new CasesPage();
+        viewCasePage = new ViewCasePage();
+        editCasePage= new EditCasePage();
 
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        if (projectCreated && createdProjectName != null) {
-            projectsPage.isPageOpened()
-                    .deleteProject(createdProjectName);
-        }
+//        if (projectCreated && createdProjectName != null) {
+//            projectsPage.isPageOpened()
+//                    .deleteProject(createdProjectName);
+//        }
         Selenide.closeWebDriver();
     }
 }
