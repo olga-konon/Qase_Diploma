@@ -54,7 +54,6 @@ public class BaseTest {
         switch (browser) {
             case "firefox":
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addPreference("dom.webnotifications.enabled", false);
                 if (headless) {
                     firefoxOptions.addArguments("--headless");
                 }
@@ -65,9 +64,8 @@ public class BaseTest {
                 break;
             case "edge":
                 EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("--inprivate", "--disable-notifications");
                 if (headless) {
-                    edgeOptions.addArguments("--headless=new");
+                    edgeOptions.addArguments("--headless");
                 }
                 edgeOptions.addArguments("--no-sandbox");
                 edgeOptions.addArguments("--disable-dev-shm-usage");
@@ -86,11 +84,12 @@ public class BaseTest {
                 chromeOptions.addArguments("--disable-popup-blocking");
                 chromeOptions.addArguments("--disable-infobars");
                 if (headless) {
-                    chromeOptions.addArguments("--headless=new");
+                    chromeOptions.addArguments("--headless");
                 }
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
                 chromeOptions.addArguments("--disable-gpu");
+                chromeOptions.addArguments("--disable-http2");
 
                 Configuration.browserCapabilities = chromeOptions;
         }
