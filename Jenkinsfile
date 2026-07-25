@@ -21,7 +21,7 @@ pipeline {
                         -Duser=$QASE_CREDS_USR \
                         -Dpassword=$QASE_CREDS_PSW \
                         -Dtoken=$QASE_TOKEN \
-                        -DtestFailureIgnore=true
+                        -Dmaven.test.failure.ignore=true
                 '''
             }
         }
