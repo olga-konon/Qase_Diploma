@@ -1,21 +1,27 @@
 package tests.base;
 
+import api.adapters.ProjectAdapter;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Config;
 import io.qameta.allure.selenide.AllureSelenide;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import ui.pages.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+@Log4j2
 public class BaseTest {
 
     public LoginPage loginPage;
@@ -27,8 +33,7 @@ public class BaseTest {
     public EditCasePage editCasePage;
 
     protected String createdProjectName;
-    protected String createdProjectCode;
-    protected boolean projectCreated;
+    protected final List<String> projectCodesToCleanUp = new ArrayList<>();
 
     @Parameters("browser")
     @BeforeMethod
@@ -105,10 +110,17 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-//        if (projectCreated && createdProjectName != null) {
-//            projectsPage.isPageOpened()
-//                    .deleteProject(createdProjectName);
-//        }
         Selenide.closeWebDriver();
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void cleanUpProjects() {
+        for (String code : projectCodesToCleanUp) {
+            try {
+                ProjectAdapter.deleteProject(code);
+            } catch (Exception e) {
+                log.error("Failed to clean up project {}: {}", code, e.getMessage());
+            }
+        }
     }
 }

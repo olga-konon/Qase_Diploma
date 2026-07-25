@@ -39,7 +39,7 @@ public class CaseTest extends BaseTest {
         assertTrue(rs.status);
 
         createdProjectName = projectName;
-        projectCreated = true;
+        projectCodesToCleanUp.add(projectCode);
 
         loginPage.open()
                 .login(Config.getUser(), Config.getPassword())
