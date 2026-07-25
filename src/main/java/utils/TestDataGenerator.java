@@ -7,15 +7,15 @@ public class TestDataGenerator {
     private static final AtomicLong COUNTER = new AtomicLong();
 
     public static String generateProjectName() {
-        return "Name-" + System.currentTimeMillis() + COUNTER.incrementAndGet();
+        return "NAME" + System.currentTimeMillis() + COUNTER.incrementAndGet();
     }
 
     public static String generateProjectCode() {
-        return "Code" + (System.currentTimeMillis() % 100000) + COUNTER.incrementAndGet();
+        return "C" + (System.currentTimeMillis() % 100000) + (COUNTER.incrementAndGet() % 10000);
     }
 
     public static String generateCaseTitle() {
-        return "Case" + (System.currentTimeMillis() % 100000) + COUNTER.incrementAndGet();
+        return "CASE" + (System.currentTimeMillis() % 100000) + COUNTER.incrementAndGet();
     }
 
 }

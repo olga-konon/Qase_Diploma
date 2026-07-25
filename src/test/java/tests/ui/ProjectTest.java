@@ -26,7 +26,6 @@ public class ProjectTest extends BaseTest {
         open("/projects");
 
         createdProjectName = projectName;
-        projectCodesToCleanUp.add(projectCode);
 
         projectsPage.isPageOpened()
                 .shouldSeeProject(projectName);
@@ -60,8 +59,6 @@ public class ProjectTest extends BaseTest {
                 .fillInProjectForm(projectName, projectCode)
                 .clickCreateProjectButton();
         open("/projects");
-
-        projectCodesToCleanUp.add(projectCode);
 
         projectsPage.isPageOpened()
                 .clickCreateNewProjectButton()

@@ -38,11 +38,6 @@ public class CaseAPITest {
         ProjectAdapter.createProject(rq);
     }
 
-    @AfterClass(alwaysRun = true)
-    public void deleteFixtureProject() {
-        ProjectAdapter.deleteProject(code);
-    }
-
     @Test(priority = 1,
             description = "API-CASE-04 — Verify `POST /case/{code}` creates a case with valid data")
     public void createTest() {
@@ -51,6 +46,7 @@ public class CaseAPITest {
                 .title(title)
                 .build();
 
+        System.out.println(code);
         CaseRs rs = CaseAdapter.createTest(rq, code);
         assertTrue(rs.status);
         assertNotNull(rs.result.id);

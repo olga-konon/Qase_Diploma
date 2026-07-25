@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="CrossBrowserSuite" parallel="tests" thread-count="4">
+<suite name="CrossBrowserSuite" parallel="tests" thread-count="1">
     <listeners>
         <listener class-name="listeners.TestListener"/>
         <listener class-name="listeners.RetryTransformer"/>
-        <listener class-name="listeners.ProjectCleanupSuiteListener"/>
-    </listeners>
+           </listeners>
     <test name="Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="tests.ui.ProjectTest"/>
-            <class name="tests.ui.CaseTest"></class>
+            <class name="tests.ui.CaseTest"/>
         </classes>
     </test>
     <test name="Edge">
