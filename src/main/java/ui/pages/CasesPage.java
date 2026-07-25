@@ -25,9 +25,16 @@ public class CasesPage extends BasePage {
     }
 
     @Step("Click create case button")
-    public CreateCasePage clickCreateCaseButton() {
+    public CasesPage clickCreateCaseButton() {
         log.info("Clicking create case button");
         $(byText(Elements.CREATE_CASE_BUTTON)).click();
+        return this;
+    }
+
+    @Step("Click manually create case button")
+    public CreateCasePage clickManuallyCreateCaseButton() {
+        log.info("Clicking  manually create case button");
+        $(byText(Elements.MANUALLY_CASE_BUTTON)).click();
         return new CreateCasePage();
     }
 

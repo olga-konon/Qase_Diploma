@@ -13,6 +13,8 @@ public class Elements {
 
     //CasesPage
     public static final String CREATE_CASE_BUTTON = "Manual test";
+    public static final String MANUALLY_CASE_BUTTON = "Create manually";
+
     public static final String CLICK_TEST_SUITE ="Test cases without suite";
     public static final String CONFIRM ="CONFIRM";
 

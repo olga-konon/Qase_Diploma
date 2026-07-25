@@ -47,6 +47,7 @@ public class CaseTest extends BaseTest {
                 .clickProjectName(projectName)
                 .isPageOpened()
                 .clickCreateCaseButton()
+                .clickManuallyCreateCaseButton()
                 .fillInProjectForm(caseTitle)
                 .clickSaveCaseButton()
                 .isPageOpened()
