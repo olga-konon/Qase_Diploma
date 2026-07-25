@@ -34,6 +34,7 @@ public class BaseTest {
         String browser = System.getProperty("browser", browserParam);
         Configuration.browser = browser;
         Configuration.baseUrl = Config.getBaseUrl();
+        Configuration.browserSize = "1920x1080";
 
         Configuration.timeout = 20000;
         Configuration.clickViaJs = true;

@@ -20,13 +20,15 @@ pipeline {
                         -DbaseUrl=$BASE_URL \
                         -Duser=$QASE_CREDS_USR \
                         -Dpassword=$QASE_CREDS_PSW \
-                        -Dtoken=$QASE_TOKEN
+                        -Dtoken=$QASE_TOKEN \
+                        -DtestFailureIgnore=true
                 '''
             }
         }
     }
     post {
         always {
+            junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
             allure includeProperties: false, results: [[path: 'target/allure-results']]
         }
     }

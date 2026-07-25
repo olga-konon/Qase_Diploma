@@ -7,7 +7,7 @@ public class TestDataGenerator {
     private static final AtomicLong COUNTER = new AtomicLong();
 
     public static String generateProjectName() {
-        return "NAME" + System.currentTimeMillis() + COUNTER.incrementAndGet();
+        return "NAME" + (System.currentTimeMillis() % 100000) + (COUNTER.incrementAndGet() % 10000);
     }
 
     public static String generateProjectCode() {
@@ -15,7 +15,7 @@ public class TestDataGenerator {
     }
 
     public static String generateCaseTitle() {
-        return "CASE" + (System.currentTimeMillis() % 100000) + COUNTER.incrementAndGet();
+        return "CASE" + (System.currentTimeMillis() % 100000) + (COUNTER.incrementAndGet() % 10000);
     }
 
 }
