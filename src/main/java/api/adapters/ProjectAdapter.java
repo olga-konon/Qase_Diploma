@@ -1,12 +1,26 @@
 package api.adapters;
 
 import api.models.project.ProjectErrorRs;
+import api.models.project.ProjectListRs;
 import api.models.project.ProjectRq;
 import api.models.project.ProjectRs;
 
 import static io.restassured.RestAssured.given;
 
 public class ProjectAdapter extends BaseAdapter {
+
+    public static ProjectListRs getAllProjects() {
+        return given()
+                .spec(spec)
+                .queryParam("limit", 100)
+                .when()
+                .get("/project")
+                .then()
+                .log().all()
+                .spec(ok200)
+                .extract()
+                .as(ProjectListRs.class);
+    }
 
     public static ProjectRs createProject(ProjectRq rq) {
         return given()

@@ -1,12 +1,17 @@
 package tests.api;
 
 import api.adapters.CaseAdapter;
+import api.adapters.ProjectAdapter;
 import api.models.cases.CaseErrorRs;
 import api.models.cases.CaseRq;
 import api.models.cases.CaseRs;
+import api.models.project.ProjectRq;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
+import utils.TestDataGenerator;
 
 import static org.testng.Assert.*;
 
@@ -14,10 +19,29 @@ import static org.testng.Assert.*;
 public class CaseAPITest {
 
     private boolean caseCreated = false;
-    // add project creating method
-    String code = "QA";
+    String code;
     int id;
     String title;
+
+    @BeforeClass
+    public void createFixtureProject() {
+        code = TestDataGenerator.generateProjectCode();
+
+        ProjectRq rq = ProjectRq.builder()
+                .title(TestDataGenerator.generateProjectName())
+                .code(code)
+                .description("test")
+                .access("all")
+                .group("test")
+                .build();
+
+        ProjectAdapter.createProject(rq);
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void deleteFixtureProject() {
+        ProjectAdapter.deleteProject(code);
+    }
 
     @Test(priority = 1,
             description = "API-CASE-04 — Verify `POST /case/{code}` creates a case with valid data")
