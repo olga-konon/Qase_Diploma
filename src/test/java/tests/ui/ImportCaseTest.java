@@ -15,8 +15,10 @@ public class ImportCaseTest extends BaseTest {
     String projectName;
     String projectCode;
 
-    String caseImportedText = "case were successfully imported!";
+    String caseImportedText = "0 cases modified, 0 suites and 3 cases were successfully imported!";
+    String caseEditedText = "3 cases modified, 0 suites and 0 cases were successfully imported!";
     String caseInvalidFileText = "Data is invalid.";
+    String caseDeletedText = "Deletion of 3 test cases started";
 
     @BeforeMethod
     public void createFixtureProject() {
@@ -24,15 +26,15 @@ public class ImportCaseTest extends BaseTest {
         projectCode = TestDataGenerator.generateProjectCode();
 
         ProjectRs rs = ProjectAdapter.createDefaultProject(projectName, projectCode);
-        assertTrue(rs.status);
+        assertTrue(rs.status, "Project should be created");
 
         createdProjectName = projectName;
     }
 
-//    @AfterMethod(alwaysRun = true)
-//    public void deleteFixtureProject() {
-//        ProjectAdapter.deleteProject(projectCode);
-//    }
+    @AfterMethod(alwaysRun = true)
+    public void deleteFixtureProject() {
+        ProjectAdapter.deleteProject(projectCode);
+    }
 
     @Test(description = "UI-CASE-BULK-01 — Verify cases can be imported from file into a project")
     public void checkImportCase() {
@@ -50,7 +52,6 @@ public class ImportCaseTest extends BaseTest {
                 .clickTestSuite()
                 .shouldSeeCase("TEST123")
                 .modalShouldHaveText(caseImportedText);
-
     }
 
     @Test(description = "UI-CASE-BULK-04 — Verify importing invalid file (wrong type or bad row) is rejected ")
@@ -68,7 +69,6 @@ public class ImportCaseTest extends BaseTest {
                 .isPageOpened();
 
         casesPage.modalShouldHaveText(caseInvalidFileText);
-
     }
 
     @Test(description = "UI-CASE-BULK-02 — Verify multiple cases can be selected and bulk-updated for a shared field such as status or priority")
@@ -82,18 +82,16 @@ public class ImportCaseTest extends BaseTest {
                 .isPageOpened()
                 .uploadFile("import_3cases.json")
                 .clickImportCaseButton()
-                .isPageOpened()
-                //update
-                .clickActionMenu()
+                .isPageOpened();
+
+        casesPage.clickActionMenu()
                 .isPageOpened()
                 .clickImportDataButton()
                 .isPageOpened()
                 .uploadFile("import_3cases_updated.json")
                 .clickCheckBox()
-                .clickImportCaseButton();
-
-        // add validation
-
+                .clickImportCaseButton()
+                .modalShouldHaveText(caseEditedText);
     }
 
     @Test(description = "UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted")
@@ -114,9 +112,7 @@ public class ImportCaseTest extends BaseTest {
         casesPage.selectAll()
                 .clickDeleteButton()
                 .fillInConfirm()
-                .clickDeleteOnFormButton();
-
-        // assertions
-
+                .clickDeleteOnFormButton()
+                .modalShouldHaveText(caseDeletedText);
     }
 }

@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class EditCasePage extends BasePage{
+
     private final String TITLE_FIELD = "input[name='title']";
 
     @Step("Clear case title field")

@@ -48,5 +48,4 @@ public class ImportCasePage extends BasePage {
         $(IMPORT_CASE_BUTTON).click();
         return this;
     }
-
 }

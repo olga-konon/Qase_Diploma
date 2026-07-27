@@ -15,7 +15,7 @@ public class ProjectsPage extends BasePage {
     private static final String ACTION_MENU = "button[aria-label='Open action menu']";
     private static final String REMOVE_BUTTON = "[data-testid='remove']";
     private static final String CONFIRM_BUTTON = "//span[text()='Delete project']";
-      private static final String TABLE_TAG = "tr";
+    private static final String TABLE_TAG = "tr";
 
     public ProjectsPage isPageOpened() {
         waitForVisible($(byText(Elements.CREATE_NEW_PROJECT_BUTTON)));

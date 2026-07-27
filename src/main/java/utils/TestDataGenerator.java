@@ -17,5 +17,4 @@ public class TestDataGenerator {
     public static String generateCaseTitle() {
         return "CASE" + (System.currentTimeMillis() % 100000) + (COUNTER.incrementAndGet() % 10000);
     }
-
 }

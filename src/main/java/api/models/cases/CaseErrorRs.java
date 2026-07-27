@@ -9,7 +9,7 @@ import java.util.Map;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CaseErrorRs {
+
     public String message;
     public Map<String, List<String>> errors;
 }
-

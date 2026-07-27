@@ -17,9 +17,8 @@ public class CasesPage extends BasePage {
     private final String CONFIRM_INPUT = "input[name='confirm']";
     private final String DELETE_ON_FORM_BUTTON = "button[type='submit']";
     private final String CONFIRMATION_MODAL = "div[role='alert']";
-     private final String PROJECT_ACTION_MENU_BUTTON = "button[aria-label='Show project actions menu']";
-      private final String IMPORT_DATA_BUTTON = "[data-key='import-data-button']";
-
+    private final String PROJECT_ACTION_MENU_BUTTON = "button[aria-label='Show project actions menu']";
+    private final String IMPORT_DATA_BUTTON = "[data-key='import-data-button']";
 
     public CasesPage isPageOpened() {
         waitForVisible($(byText(Elements.CREATE_CASE_BUTTON)));
@@ -128,6 +127,4 @@ public class CasesPage extends BasePage {
                 .shouldBe(visible)
                 .shouldHave(text(expectedText));
     }
-
-
- }
+}

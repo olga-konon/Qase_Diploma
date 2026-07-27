@@ -14,18 +14,23 @@ import utils.TestDataGenerator;
 
 import static org.testng.Assert.*;
 
-
 public class CaseAPITest {
 
     private boolean caseCreated = false;
     String code;
     int id;
     String title;
+    String expectedErrorMessageMissingTitle ="The title field is required.";
 
     @BeforeClass
     public void createFixtureProject() {
         code = TestDataGenerator.generateProjectCode();
         ProjectAdapter.createDefaultProject(TestDataGenerator.generateProjectName(), code);
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void deleteFixtureProject() {
+        ProjectAdapter.deleteProject(code);
     }
 
     @Test(priority = 1,
@@ -37,8 +42,8 @@ public class CaseAPITest {
                 .build();
 
         CaseRs rs = CaseAdapter.createTest(rq, code);
-        assertTrue(rs.status);
-        assertNotNull(rs.result.id);
+        assertTrue(rs.status, "Case should be created");
+        assertNotNull(rs.result.id, "Case id should not be null");
         id = rs.result.id;
 
         caseCreated = true;
@@ -53,10 +58,8 @@ public class CaseAPITest {
         }
 
         CaseRs rs = CaseAdapter.getCaseByCodeAndID(code, id);
-        assertEquals(rs.result.id, id);
-        assertEquals(rs.result.title, title);
-
-
+        assertEquals(rs.result.id, id, "Case id should match");
+        assertEquals(rs.result.title, title, "Case title should match");
     }
 
     @Test(priority = 3,
@@ -71,7 +74,7 @@ public class CaseAPITest {
                 .build();
 
         CaseRs rs = CaseAdapter.updateCaseByCodeAndID(rq, code, id);
-        assertTrue(rs.status);
+        assertTrue(rs.status, "Case should be updated");
 
 
     }
@@ -84,10 +87,8 @@ public class CaseAPITest {
         }
 
         CaseRs rs = CaseAdapter.getCaseByCodeAndID(code, id);
-        assertEquals(rs.result.id, id);
-        assertEquals(rs.result.title, title);
-
-
+        assertEquals(rs.result.id, id, "Case id should match");
+        assertEquals(rs.result.title, title, "Case title should be updated");
     }
 
     @Test(priority = 5, description = "API-CASE-05 — Verify `POST /case/{code}` returns an error when the title is empty")
@@ -97,8 +98,8 @@ public class CaseAPITest {
                 .build();
 
         CaseErrorRs rs = CaseAdapter.createCaseExpectingError(rq, code);
-        assertEquals(rs.message, "The title field is required.");
-        assertTrue(rs.errors.get("title").contains("The title field is required."));
+        assertEquals(rs.message, expectedErrorMessageMissingTitle, "Title is required");
+        assertTrue(rs.errors.get("title").contains("The title field is required."), "Title error should be listed");
     }
 
     @Test(priority = 4,
@@ -110,8 +111,8 @@ public class CaseAPITest {
             throw new SkipException("No test case was created — nothing to fetch");
         }
         CaseRs rs = CaseAdapter.deleteCaseByCodeAndID(code, id);
-        assertTrue(rs.status);
+        assertTrue(rs.status, "Case should be deleted");
         caseCreated = false;
-        assertEquals(rs.result.id, id);
+        assertEquals(rs.result.id, id, "Deleted case id should match");
     }
 }

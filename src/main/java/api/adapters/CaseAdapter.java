@@ -3,8 +3,6 @@ package api.adapters;
 import api.models.cases.CaseErrorRs;
 import api.models.cases.CaseRq;
 import api.models.cases.CaseRs;
-import api.models.project.ProjectRq;
-import api.models.project.ProjectRs;
 
 import static api.adapters.BaseAdapter.*;
 import static io.restassured.RestAssured.given;
@@ -39,7 +37,7 @@ public class CaseAdapter {
                 .as(CaseErrorRs.class);
     }
 
-    public static CaseRs updateCaseByCodeAndID(CaseRq rq,String code, int id) {
+    public static CaseRs updateCaseByCodeAndID(CaseRq rq, String code, int id) {
         return given()
                 .spec(spec)
                 .pathParams("code", code, "id", id)

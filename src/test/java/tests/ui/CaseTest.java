@@ -28,7 +28,7 @@ public class CaseTest extends BaseTest {
         projectCode = TestDataGenerator.generateProjectCode();
 
         ProjectRs rs = ProjectAdapter.createDefaultProject(projectName, projectCode);
-        assertTrue(rs.status);
+        assertTrue(rs.status, "Project should be created");
 
         createdProjectName = projectName;
     }
@@ -52,7 +52,6 @@ public class CaseTest extends BaseTest {
                 .isPageOpened()
                 .shouldSeeCase(caseTitle)
                 .modalShouldHaveText(caseCreatedText);
-
     }
 
     @Test(description = "UI-CASE-03 — Verify an existing case can be edited")
@@ -60,7 +59,7 @@ public class CaseTest extends BaseTest {
         String caseTitle = TestDataGenerator.generateCaseTitle();
         CaseRq rq = CaseRq.builder().title(caseTitle).build();
         CaseRs rs = CaseAdapter.createTest(rq, projectCode);
-        assertTrue(rs.status);
+        assertTrue(rs.status, "Case should be created");
 
         loginAsDefaultUser()
                 .clickProjectName(projectName)
@@ -75,7 +74,6 @@ public class CaseTest extends BaseTest {
                 .isPageOpened()
                 .shouldSeeCase("QA")
                 .modalShouldHaveText(caseEditedText);
-
     }
 
     @Test(description = "UI-CASE-04 — Verify a case can be deleted with confirmation")
@@ -83,7 +81,7 @@ public class CaseTest extends BaseTest {
         String caseTitle = TestDataGenerator.generateCaseTitle();
         CaseRq rq = CaseRq.builder().title(caseTitle).build();
         CaseRs rs = CaseAdapter.createTest(rq, projectCode);
-        assertTrue(rs.status);
+        assertTrue(rs.status, "Case should be created");
 
         loginAsDefaultUser()
                 .clickProjectName(projectName)
@@ -96,6 +94,5 @@ public class CaseTest extends BaseTest {
                 .isPageOpened()
                 .shouldNotSeeCase(caseTitle)
                 .modalShouldHaveText(caseDeletedText);
-
     }
 }

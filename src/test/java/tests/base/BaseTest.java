@@ -103,7 +103,6 @@ public class BaseTest {
         viewCasePage = new ViewCasePage();
         editCasePage= new EditCasePage();
         importCasePage = new ImportCasePage();
-
     }
 
     @AfterMethod(alwaysRun = true)

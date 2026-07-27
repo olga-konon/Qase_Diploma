@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectErrorRs {
+
     @SerializedName("error")
     @Expose
     public String error;
 }
-

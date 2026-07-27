@@ -46,7 +46,7 @@ public class ProjectAdapter extends BaseAdapter {
 
     public static ProjectRs getProjectByCode(String code) {
 
-      return  given()
+        return given()
                 .spec(spec)
                 .pathParams("code", code)
                 .log().all()
@@ -62,7 +62,7 @@ public class ProjectAdapter extends BaseAdapter {
 
     public static ProjectErrorRs getProjectByCodeWithNotValidToken(String code) {
 
-        return  given()
+        return given()
                 .spec(specWithInvalidToken)
                 .pathParams("code", code)
                 .log().all()
@@ -78,7 +78,7 @@ public class ProjectAdapter extends BaseAdapter {
 
     public static ProjectRs getProjectByNonExistingCode(String code) {
 
-        return  given()
+        return given()
                 .spec(spec)
                 .pathParams("code", code)
                 .log().all()
@@ -92,8 +92,8 @@ public class ProjectAdapter extends BaseAdapter {
 
     }
 
-    public static ProjectRs  deleteProject(String code) {
-       return given()
+    public static ProjectRs deleteProject(String code) {
+        return given()
                 .spec(spec)
                 .pathParams("code", code)
                 .log().all()
@@ -102,7 +102,7 @@ public class ProjectAdapter extends BaseAdapter {
                 .then()
                 .log().all()
                 .spec(ok200)
-               .extract()
-               .as(ProjectRs.class);
+                .extract()
+                .as(ProjectRs.class);
     }
 }

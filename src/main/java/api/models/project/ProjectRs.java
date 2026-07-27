@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectRs {
+
     @SerializedName("status")
     @Expose
     public Boolean status;
@@ -17,7 +18,4 @@ public class ProjectRs {
     @SerializedName("errorMessage")
     @Expose
     public String errorMessage;
-
-
-
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
+
     @SerializedName("code")
     @Expose
     public String code;

@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
+
     @SerializedName("id")
     @Expose
     public Integer id;
     @SerializedName("title")
     @Expose
     public String title;
-
 }
