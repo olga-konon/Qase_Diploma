@@ -49,8 +49,10 @@ public class ImportCaseTest extends BaseTest {
                 .uploadFile("test.json")
                 .clickImportCaseButton()
                 .isPageOpened()
-                .clickTestSuite()
-                .shouldSeeCase("TEST123")
+                .clickTestSuite();
+
+        casesPage.closeAidenModalIfPresent();
+        casesPage.shouldSeeCase("TEST123")
                 .modalShouldHaveText(caseImportedText);
     }
 
@@ -68,6 +70,7 @@ public class ImportCaseTest extends BaseTest {
                 .clickImportCaseButtonWithInvalidFile()
                 .isPageOpened();
 
+        casesPage.closeAidenModalIfPresent();
         casesPage.modalShouldHaveText(caseInvalidFileText);
     }
 
@@ -90,8 +93,10 @@ public class ImportCaseTest extends BaseTest {
                 .isPageOpened()
                 .uploadFile("import_3cases_updated.json")
                 .clickCheckBox()
-                .clickImportCaseButton()
-                .modalShouldHaveText(caseEditedText);
+                .clickImportCaseButton();
+
+        casesPage.closeAidenModalIfPresent();
+        casesPage.modalShouldHaveText(caseEditedText);
     }
 
     @Test(description = "UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted")
