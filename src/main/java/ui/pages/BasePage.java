@@ -14,6 +14,7 @@ public class BasePage {
             "dialog[data-sentry-component='ModalDialog'] button:has(svg[data-icon='xmark'])";
 
     protected void waitForVisible(SelenideElement element) {
+        closeAidenModalIfPresent();
         log.info("Waiting for element to be visible: {}", element);
         element.shouldBe(visible);
     }
