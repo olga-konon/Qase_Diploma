@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class BasePage {
 
     private static final String AIDEN_MODAL_CLOSE =
-            "dialog[data-sentry-component='ModalDialog'] button:has(svg[data-icon='xmark'])";
+            "dialog[data-sentry-component='ModalDialog']:has(img[alt='Explore AIDEN']) button:has(svg[data-icon='xmark'])";
 
     protected void waitForVisible(SelenideElement element) {
         closeAidenModalIfPresent();

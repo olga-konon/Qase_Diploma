@@ -73,7 +73,7 @@ Qase-diploma/
 - [x] UI-PRJ-03 — Verify project creation is blocked when the project code already exists
 - [ ] UI-PRJ-04 — Verify a created project can be found using search
 - [ ] UI-PRJ-06 — Verify an existing project can be edited
-- [x] UI-PRJ-05 — Verify a created project can be deleted
+- [ ] UI-PRJ-05 — Verify a created project can be deleted
 
 ### UI — Case
 - [ ] UI-CASE-01 — Verify cases can be filtered by status
