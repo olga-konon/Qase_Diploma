@@ -2,6 +2,39 @@ Test Case Suite — Qase.io Projects & Cases (API + UI)
 
 Project link: https://app.qase.io/login
 
+## Project structure
+
+```
+Qase-diploma/
+├── Jenkinsfile                    # CI pipeline definition
+├── pom.xml                        # Maven build + dependency config
+├── README.md                      # This file — source of truth for UI-XXX/API-XXX IDs
+│
+└── src/
+    ├── main/java/
+    │   ├── api/
+    │   │   ├── adapters/          # REST-Assured calls (BaseAdapter, ProjectAdapter, CaseAdapter)
+    │   │   └── models/            # Typed request/response DTOs (project/, cases/)
+    │   ├── ui/
+    │   │   ├── pages/             # Page Object Model — one class per screen
+    │   │   └── dict/              # Shared UI text/label constants
+    │   ├── helpers/                # Config + PropertyReader (credentials)
+    │   └── utils/                  # TestDataGenerator
+    │
+    └── test/
+        ├── java/
+        │   ├── listeners/          # TestListener, Retry, RetryTransformer
+        │   └── tests/
+        │       ├── base/           # BaseTest
+        │       ├── api/            # ProjectAPITest, CaseAPITest
+        │       └── ui/             # ProjectTest, CaseTest, ImportCaseTest
+        └── resources/
+            ├── testng.xml
+            ├── log4j2-test.xml
+            ├── allure.properties
+            └── test-data/          # Fixture files for import tests
+```
+
 ## API Checklist
 
 ### API — Project
@@ -40,14 +73,14 @@ Project link: https://app.qase.io/login
 - [x] UI-PRJ-03 — Verify project creation is blocked when the project code already exists
 - [ ] UI-PRJ-04 — Verify a created project can be found using search
 - [ ] UI-PRJ-06 — Verify an existing project can be edited
-- [ ] UI-PRJ-05 — Verify a created project can be deleted
+- [x] UI-PRJ-05 — Verify a created project can be deleted
 
 ### UI — Case
 - [ ] UI-CASE-01 — Verify cases can be filtered by status
 - [x] UI-CASE-02 — Verify a case can be created via the form with valid data
 - [x] UI-CASE-03 — Verify an existing case can be edited
 - [x] UI-CASE-04 — Verify a case can be deleted with confirmation
-- [ ] UI-CASE-BULK-01 — Verify cases can be imported from file into a project
-- [ ] UI-CASE-BULK-02 — Verify multiple cases can be selected and bulk-updated for a shared field such as status or priority
-- [ ] UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted
-- [ ] UI-CASE-BULK-04 — Verify importing invalid file (wrong type or bad row) is rejected 
+- [x] UI-CASE-BULK-01 — Verify cases can be imported from file into a project
+- [x] UI-CASE-BULK-02 — Verify multiple cases can be selected and bulk-updated status
+- [x] UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted
+- [x] UI-CASE-BULK-04 — Verify importing invalid file (bad row) is rejected 

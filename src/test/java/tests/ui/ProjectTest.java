@@ -1,24 +1,30 @@
 package tests.ui;
 
-import helpers.Config;
+import lombok.extern.log4j.Log4j2;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 import utils.TestDataGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.codeborne.selenide.Selenide.*;
 
+@Log4j2
 @Listeners(listeners.TestListener.class)
 public class ProjectTest extends BaseTest {
 
-    @Test(description = "UI-PRJ-01 — Verify a project can be created via the form with valid data")
+    private final List<String> createdProjectNames = new ArrayList<>();
+
+    @Test(priority = 1,
+            description = "UI-PRJ-01 — Verify a project can be created via the form with valid data")
     public void checkCreateProject() {
         String projectName = TestDataGenerator.generateProjectName();
         String projectCode = TestDataGenerator.generateProjectCode();
 
-        loginPage.open()
-                .login(Config.getUser(), Config.getPassword())
-                .isPageOpened()
+        loginAsDefaultUser()
                 .clickCreateNewProjectButton()
                 .isPageOpened()
                 .fillInProjectForm(projectName, projectCode)
@@ -26,6 +32,7 @@ public class ProjectTest extends BaseTest {
         open("/projects");
 
         createdProjectName = projectName;
+        createdProjectNames.add(projectName);
 
         projectsPage.isPageOpened()
                 .shouldSeeProject(projectName);
@@ -35,9 +42,7 @@ public class ProjectTest extends BaseTest {
     public void shouldNotCreateProjectNameIsEmpty() {
         String projectCode = TestDataGenerator.generateProjectCode();
 
-        loginPage.open()
-                .login(Config.getUser(), Config.getPassword())
-                .isPageOpened()
+        loginAsDefaultUser()
                 .clickCreateNewProjectButton()
                 .isPageOpened()
                 .fillInProjectForm("", projectCode);
@@ -51,14 +56,14 @@ public class ProjectTest extends BaseTest {
         String projectName = TestDataGenerator.generateProjectName();
         String projectCode = TestDataGenerator.generateProjectCode();
 
-        loginPage.open()
-                .login(Config.getUser(), Config.getPassword())
-                .isPageOpened()
+        loginAsDefaultUser()
                 .clickCreateNewProjectButton()
                 .isPageOpened()
                 .fillInProjectForm(projectName, projectCode)
                 .clickCreateProjectButton();
         open("/projects");
+
+        createdProjectNames.add(projectName);
 
         projectsPage.isPageOpened()
                 .clickCreateNewProjectButton()
@@ -67,5 +72,23 @@ public class ProjectTest extends BaseTest {
 
         projectPage.clickCreateProjectButton();
         projectPage.isPageOpened();
+
+        // ADD ERROR
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void cleanUpCreatedProjects() {
+        if (createdProjectNames.isEmpty()) {
+            return;
+        }
+        loginAsDefaultUser();
+
+        for (String projectName : createdProjectNames) {
+            open("/projects");
+            projectsPage.deleteProject(projectName);
+        }
+
+        closeWebDriver();
+
     }
 }

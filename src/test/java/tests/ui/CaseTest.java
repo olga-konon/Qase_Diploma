@@ -1,9 +1,12 @@
 package tests.ui;
 
+import api.adapters.CaseAdapter;
 import api.adapters.ProjectAdapter;
-import api.models.project.ProjectRq;
+import api.models.cases.CaseRq;
+import api.models.cases.CaseRs;
 import api.models.project.ProjectRs;
-import helpers.Config;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 import utils.TestDataGenerator;
@@ -18,31 +21,28 @@ public class CaseTest extends BaseTest {
 
     String projectName;
     String projectCode;
-    String caseTitle;
 
-    @Test(priority = 1, description = "UI-CASE-02 — Verify a case can be created via the form with valid data")
-    public void checkCreateCase() {
-
+    @BeforeMethod
+    public void createFixtureProject() {
         projectName = TestDataGenerator.generateProjectName();
         projectCode = TestDataGenerator.generateProjectCode();
-        caseTitle = TestDataGenerator.generateCaseTitle();
 
-        ProjectRq rq = ProjectRq.builder()
-                .title(projectName)
-                .code(projectCode)
-                .description("test")
-                .access("all")
-                .group("test")
-                .build();
-
-        ProjectRs rs = ProjectAdapter.createProject(rq);
+        ProjectRs rs = ProjectAdapter.createDefaultProject(projectName, projectCode);
         assertTrue(rs.status);
 
         createdProjectName = projectName;
+    }
 
-        loginPage.open()
-                .login(Config.getUser(), Config.getPassword())
-                .isPageOpened()
+    @AfterMethod(alwaysRun = true)
+    public void deleteFixtureProject() {
+        ProjectAdapter.deleteProject(projectCode);
+    }
+
+    @Test(description = "UI-CASE-02 — Verify a case can be created via the form with valid data")
+    public void checkCreateCase() {
+        String caseTitle = TestDataGenerator.generateCaseTitle();
+
+        loginAsDefaultUser()
                 .clickProjectName(projectName)
                 .isPageOpened()
                 .clickCreateCaseButton()
@@ -55,16 +55,19 @@ public class CaseTest extends BaseTest {
 
     }
 
-    @Test(dependsOnMethods = "checkCreateCase",
-            description = "Verify an existing case can be edited")
+    @Test(description = "UI-CASE-03 — Verify an existing case can be edited")
     public void editTestCase() {
-        loginPage.open()
-                .login(Config.getUser(), Config.getPassword())
-                .isPageOpened()
-                .clickProjectName(createdProjectName)
+        String caseTitle = TestDataGenerator.generateCaseTitle();
+        CaseRq rq = CaseRq.builder().title(caseTitle).build();
+        CaseRs rs = CaseAdapter.createTest(rq, projectCode);
+        assertTrue(rs.status);
+
+        loginAsDefaultUser()
+                .clickProjectName(projectName)
                 .isPageOpened()
                 .clickTestSuite()
                 .clickTestCase(caseTitle)
+                .isPageOpened()
                 .clickEditButton()
                 .clearProjectForm()
                 .fillInProjectForm("QA")
@@ -75,20 +78,23 @@ public class CaseTest extends BaseTest {
 
     }
 
-    @Test(dependsOnMethods = "editTestCase",
-            description = "UI-CASE-04 — Verify a case can be deleted with confirmation")
+    @Test(description = "UI-CASE-04 — Verify a case can be deleted with confirmation")
     public void checkDeleteCase() {
-        loginPage.open()
-                .login(Config.getUser(), Config.getPassword())
-                .clickProjectName(createdProjectName)
+        String caseTitle = TestDataGenerator.generateCaseTitle();
+        CaseRq rq = CaseRq.builder().title(caseTitle).build();
+        CaseRs rs = CaseAdapter.createTest(rq, projectCode);
+        assertTrue(rs.status);
+
+        loginAsDefaultUser()
+                .clickProjectName(projectName)
                 .isPageOpened()
                 .clickTestSuite()
-                .selectCase("QA")
+                .selectCase(caseTitle)
                 .clickDeleteButton()
                 .fillInConfirm()
                 .clickDeleteOnFormButton()
                 .isPageOpened()
-                .shouldNotSeeCase("QA")
+                .shouldNotSeeCase(caseTitle)
                 .modalShouldHaveText(caseDeletedText);
 
     }

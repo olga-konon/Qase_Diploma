@@ -9,6 +9,7 @@
         <classes>
             <class name="tests.ui.ProjectTest"/>
             <class name="tests.ui.CaseTest"/>
+            <class name="tests.ui.ImportCaseTest"/>
         </classes>
     </test>
     <test name="API">

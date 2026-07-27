@@ -12,10 +12,10 @@ import static com.codeborne.selenide.Selenide.$x;
 @Log4j2
 public class ProjectsPage extends BasePage {
 
+    private static final String ACTION_MENU = "button[aria-label='Open action menu']";
     private static final String REMOVE_BUTTON = "[data-testid='remove']";
     private static final String CONFIRM_BUTTON = "//span[text()='Delete project']";
-    private static final String ACTION_MENU = "button[aria-label='Open action menu']";
-    private static final String TABLE_TAG = "tr";
+      private static final String TABLE_TAG = "tr";
 
     public ProjectsPage isPageOpened() {
         waitForVisible($(byText(Elements.CREATE_NEW_PROJECT_BUTTON)));
@@ -33,6 +33,13 @@ public class ProjectsPage extends BasePage {
     public ProjectsPage shouldSeeProject(String projectName) {
         log.info("Verifying project is visible: {}", projectName);
         $(byText(projectName)).shouldBe(visible);
+        return this;
+    }
+
+    @Step("Verify project is not visible: '{projectName}'")
+    public ProjectsPage shouldNotSeeProject(String projectName) {
+        log.info("Verifying project is not visible: {}", projectName);
+        $(byText(projectName)).shouldNotBe(visible);
         return this;
     }
 

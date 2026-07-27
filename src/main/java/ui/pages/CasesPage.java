@@ -17,6 +17,8 @@ public class CasesPage extends BasePage {
     private final String CONFIRM_INPUT = "input[name='confirm']";
     private final String DELETE_ON_FORM_BUTTON = "button[type='submit']";
     private final String CONFIRMATION_MODAL = "div[role='alert']";
+     private final String PROJECT_ACTION_MENU_BUTTON = "button[aria-label='Show project actions menu']";
+      private final String IMPORT_DATA_BUTTON = "[data-key='import-data-button']";
 
 
     public CasesPage isPageOpened() {
@@ -36,6 +38,20 @@ public class CasesPage extends BasePage {
         log.info("Clicking  manually create case button");
         $(byText(Elements.MANUALLY_CASE_BUTTON)).click();
         return new CreateCasePage();
+    }
+
+    @Step("Click project actions menu")
+    public CasesPage clickActionMenu() {
+        log.info("Clicking project actions menu");
+        $(PROJECT_ACTION_MENU_BUTTON).click();
+        return this;
+    }
+
+    @Step("Click import data button")
+    public ImportCasePage clickImportDataButton() {
+        log.info("Clicking import data button");
+        $(IMPORT_DATA_BUTTON).click();
+        return new ImportCasePage();
     }
 
     @Step("Click test suite")
@@ -60,6 +76,13 @@ public class CasesPage extends BasePage {
                 .$("label")
                 .shouldBe(visible)
                 .click();
+        return this;
+    }
+
+    @Step("Select all cases")
+    public CasesPage selectAll() {
+        log.info("Selecting all cases");
+        $(byText(Elements.SELECT_ALL)).click();
         return this;
     }
 
@@ -105,5 +128,6 @@ public class CasesPage extends BasePage {
                 .shouldBe(visible)
                 .shouldHave(text(expectedText));
     }
+
 
  }

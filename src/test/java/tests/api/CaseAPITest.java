@@ -5,7 +5,6 @@ import api.adapters.ProjectAdapter;
 import api.models.cases.CaseErrorRs;
 import api.models.cases.CaseRq;
 import api.models.cases.CaseRs;
-import api.models.project.ProjectRq;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -26,16 +25,7 @@ public class CaseAPITest {
     @BeforeClass
     public void createFixtureProject() {
         code = TestDataGenerator.generateProjectCode();
-
-        ProjectRq rq = ProjectRq.builder()
-                .title(TestDataGenerator.generateProjectName())
-                .code(code)
-                .description("test")
-                .access("all")
-                .group("test")
-                .build();
-
-        ProjectAdapter.createProject(rq);
+        ProjectAdapter.createDefaultProject(TestDataGenerator.generateProjectName(), code);
     }
 
     @Test(priority = 1,
@@ -46,7 +36,6 @@ public class CaseAPITest {
                 .title(title)
                 .build();
 
-        System.out.println(code);
         CaseRs rs = CaseAdapter.createTest(rq, code);
         assertTrue(rs.status);
         assertNotNull(rs.result.id);

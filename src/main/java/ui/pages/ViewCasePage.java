@@ -10,6 +10,11 @@ public class ViewCasePage extends BasePage{
 
     private final String EDIT_BUTTON = "button[aria-label='Edit']";
 
+    public ViewCasePage isPageOpened() {
+        waitForVisible($(EDIT_BUTTON));
+        return this;
+    }
+
     @Step("Click edit button")
     public EditCasePage clickEditButton() {
         log.info("Clicking edit button");

@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Config;
+import io.qameta.allure.Allure;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -25,6 +26,7 @@ public class BaseTest {
     public CasesPage casesPage;
     public ViewCasePage viewCasePage;
     public EditCasePage editCasePage;
+    public ImportCasePage importCasePage;
 
     protected String createdProjectName;
 
@@ -32,6 +34,7 @@ public class BaseTest {
     @BeforeMethod
     public void setUp(@Optional("chrome") String browserParam) {
         String browser = System.getProperty("browser", browserParam);
+        Allure.parameter("browser", browser);
         Configuration.browser = browser;
         Configuration.baseUrl = Config.getBaseUrl();
         Configuration.browserSize = "1920x1080";
@@ -99,11 +102,16 @@ public class BaseTest {
         casesPage = new CasesPage();
         viewCasePage = new ViewCasePage();
         editCasePage= new EditCasePage();
+        importCasePage = new ImportCasePage();
 
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         Selenide.closeWebDriver();
+    }
+
+    protected ProjectsPage loginAsDefaultUser() {
+        return loginPage.open().login(Config.getUser(), Config.getPassword()).isPageOpened();
     }
 }

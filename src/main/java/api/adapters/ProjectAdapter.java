@@ -19,7 +19,16 @@ public class ProjectAdapter extends BaseAdapter {
                 .spec(ok200)
                 .extract()
                 .as(ProjectRs.class);
-        // .body(matchesJsonSchemaInClasspath("schemas/create_project_schema.json"))
+    }
+
+    public static ProjectRs createDefaultProject(String title, String code) {
+        return createProject(ProjectRq.builder()
+                .title(title)
+                .code(code)
+                .description("test")
+                .access("all")
+                .group("test")
+                .build());
     }
 
     public static ProjectRs createProjectExpectingError(ProjectRq rq) {
