@@ -1,5 +1,6 @@
 package ui.pages;
 
+import com.codeborne.selenide.selector.ByText;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import ui.dict.Elements;
@@ -17,7 +18,7 @@ public class CasesPage extends BasePage {
     private final String DELETE_BUTTON = "button[aria-label='Delete']";
     private final String CONFIRM_INPUT = "input[name='confirm']";
     private final String DELETE_ON_FORM_BUTTON = "button[type='submit']";
-    private final String CONFIRMATION_MODAL = "div[role='alert']";
+    private final String CONFIRMATION_MODAL = "#modals div[role='alert'] span span";
     private final String PROJECT_ACTION_MENU_BUTTON = "button[aria-label='Show project actions menu']";
     private final String IMPORT_DATA_BUTTON = "[data-key='import-data-button']";
 
@@ -122,10 +123,18 @@ public class CasesPage extends BasePage {
     }
 
     @Step("Verify confirmation modal text: '{expectedText}'")
-    public void modalShouldHaveText(String expectedText) {
+    public CasesPage modalShouldHaveText(String expectedText) {
         log.info("Verifying confirmation modal text: {}", expectedText);
         $(CONFIRMATION_MODAL)
                 .shouldBe(visible)
                 .shouldHave(text(expectedText));
+        return this;
+    }
+
+    @Step("Verify no suites text is displayed")
+    public CasesPage pageShouldHaveText() {
+        log.info("no suites text is displayed");
+        $(byText(Elements.NO_SUITES_TEXT)).shouldBe(visible);
+        return this;
     }
 }
