@@ -18,8 +18,7 @@ public class ProjectTest extends BaseTest {
 
     private final List<String> createdProjectNames = new ArrayList<>();
 
-    @Test(priority = 1,
-            description = "UI-PRJ-01 — Verify a project can be created via the form with valid data")
+    @Test(description = "UI-PRJ-01 — Verify a project can be created via the form with valid data")
     public void checkCreateProject() {
         String projectName = TestDataGenerator.generateProjectName();
         String projectCode = TestDataGenerator.generateProjectCode();

@@ -2,9 +2,7 @@ package tests.ui;
 
 import api.adapters.ProjectAdapter;
 import api.models.project.ProjectRs;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import tests.base.BaseTest;
 import utils.TestDataGenerator;
 
@@ -20,7 +18,7 @@ public class ImportCaseTest extends BaseTest {
     String caseInvalidFileText = "Data is invalid.";
     String caseDeletedText = "Deletion of 3 test cases started";
 
-    @BeforeMethod
+    @BeforeClass
     public void createFixtureProject() {
         projectName = TestDataGenerator.generateProjectName();
         projectCode = TestDataGenerator.generateProjectCode();
@@ -31,12 +29,13 @@ public class ImportCaseTest extends BaseTest {
         createdProjectName = projectName;
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void deleteFixtureProject() {
         ProjectAdapter.deleteProject(projectCode);
     }
 
-    @Test(description = "UI-CASE-BULK-01 — Verify cases can be imported from file into a project")
+    @Test(priority = 0,
+            description = "UI-CASE-BULK-01 — Verify cases can be imported from file into a project")
     public void checkImportCase() {
 
         loginAsDefaultUser()
@@ -56,7 +55,8 @@ public class ImportCaseTest extends BaseTest {
                 .modalShouldHaveText(caseImportedText);
     }
 
-    @Test(description = "UI-CASE-BULK-04 — Verify importing invalid file (wrong type or bad row) is rejected ")
+    @Test(priority = 3,
+            description = "UI-CASE-BULK-04 — Verify importing invalid file (wrong type or bad row) is rejected ")
     public void checkImportCaseWithInvalidFile() {
 
         loginAsDefaultUser()
@@ -74,7 +74,8 @@ public class ImportCaseTest extends BaseTest {
         casesPage.modalShouldHaveText(caseInvalidFileText);
     }
 
-    @Test(description = "UI-CASE-BULK-02 — Verify multiple cases can be selected and bulk-updated for a shared field such as status or priority")
+    @Test(priority = 1,
+            description = "UI-CASE-BULK-02 — Verify multiple cases can be selected and bulk-updated for a shared field such as status or priority")
     public void checkBulkEdit() {
         loginAsDefaultUser()
                 .clickProjectName(projectName)
@@ -99,18 +100,18 @@ public class ImportCaseTest extends BaseTest {
         casesPage.modalShouldHaveText(caseEditedText);
     }
 
-    @Test(description = "UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted")
+    @Test(priority = 2, description = "UI-CASE-BULK-03 — Verify multiple cases can be selected and bulk-deleted")
     public void checkBulkDelete() {
         loginAsDefaultUser()
                 .clickProjectName(projectName)
                 .isPageOpened()
-                .clickActionMenu()
-                .isPageOpened()
-                .clickImportDataButton()
-                .isPageOpened()
-                .uploadFile("import_3cases.json")
-                .clickImportCaseButton()
-                .isPageOpened()
+//                .clickActionMenu()
+//                .isPageOpened()
+//                .clickImportDataButton()
+//                .isPageOpened()
+//                .uploadFile("import_3cases.json")
+//                .clickImportCaseButton()
+//                .isPageOpened()
                 .clickTestSuite();
 
         casesPage.closeAidenModalIfPresent();
