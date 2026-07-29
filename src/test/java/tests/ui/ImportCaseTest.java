@@ -13,10 +13,8 @@ public class ImportCaseTest extends BaseTest {
     String projectName;
     String projectCode;
 
-    String caseImportedText = "cases were successfully imported!";
     String caseEditedText = "3 cases modified";
     String caseInvalidFileText = "Data is invalid.";
-    String caseDeletedText = "test cases started";
 
     @BeforeMethod
     public void createFixtureProject() {

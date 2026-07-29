@@ -71,8 +71,6 @@ public class ProjectTest extends BaseTest {
 
         projectPage.clickCreateProjectButton();
         projectPage.isPageOpened();
-
-        // ADD ERROR
     }
 
     @AfterClass(alwaysRun = true)

@@ -2,39 +2,6 @@ Test Case Suite — Qase.io Projects & Cases (API + UI)
 
 Project link: https://app.qase.io/login
 
-## Project structure
-
-```
-Qase-diploma/
-├── Jenkinsfile                    # CI pipeline definition
-├── pom.xml                        # Maven build + dependency config
-├── README.md                      # This file — source of truth for UI-XXX/API-XXX IDs
-│
-└── src/
-    ├── main/java/
-    │   ├── api/
-    │   │   ├── adapters/          # REST-Assured calls (BaseAdapter, ProjectAdapter, CaseAdapter)
-    │   │   └── models/            # Typed request/response DTOs (project/, cases/)
-    │   ├── ui/
-    │   │   ├── pages/             # Page Object Model — one class per screen
-    │   │   └── dict/              # Shared UI text/label constants
-    │   ├── helpers/                # Config + PropertyReader (credentials)
-    │   └── utils/                  # TestDataGenerator
-    │
-    └── test/
-        ├── java/
-        │   ├── listeners/          # TestListener, Retry, RetryTransformer
-        │   └── tests/
-        │       ├── base/           # BaseTest
-        │       ├── api/            # ProjectAPITest, CaseAPITest
-        │       └── ui/             # ProjectTest, CaseTest, ImportCaseTest
-        └── resources/
-            ├── testng.xml
-            ├── log4j2-test.xml
-            ├── allure.properties
-            └── test-data/          # Fixture files for import tests
-```
-
 ## API Checklist
 
 ### API — Project
@@ -76,6 +43,7 @@ Qase-diploma/
 - [ ] UI-PRJ-05 — Verify a created project can be deleted
 
 ### UI — Case
+
 - [ ] UI-CASE-01 — Verify cases can be filtered by status
 - [x] UI-CASE-02 — Verify a case can be created via the form with valid data
 - [x] UI-CASE-03 — Verify an existing case can be edited
